@@ -1,0 +1,50 @@
+8 bit
+-sci-fi
+-real guns
+-magic
+-pistol
+-shotgun the enter
+
+
+Enter the gungeon
+-aesthetic
+-design
+
+
+GUNS
+
+
+PLAYER
+
+ENDLESS GAME
+PERMADEATH
+
+Roguelike
+Rogue-lite
+
+
+ENEMIES
+-AI, Roguelike
+
+-Interface/Player movement/Abilities
+
+
+GUN DESIGN/ITEMS/BULLETS ON THE FLOOR
+
+INVENTORY/STATS
+
+
+Commenting
+
+
+PROTOTYPE:
+-BASIC PROTOTYPE
+	-ROOM
+	-PLAYER MOVEMENT		
+	-SHOOT GUN AT MOUSE
+	-ENEMY: DIE FROM GETTING SHOT
+
+
+
+
+
