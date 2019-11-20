@@ -8,9 +8,9 @@ public class EnemySpawn : MonoBehaviour
     public int width;
     public GameObject enemyPrefab;
 
-    public void spawn
+    public void spawn()
     {
-        val position = new Vector2(Random.Range(width, width + 5), Random.Range(height, height + 5))
-        Instantiate(enemyPrefab, position, Quaternion.identity)
+        var position = new Vector2(Random.Range(width, width + 5), Random.Range(height, height + 5));
+        Instantiate(enemyPrefab, position, Quaternion.identity);
     }
 }
