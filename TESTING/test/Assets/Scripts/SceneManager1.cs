@@ -34,6 +34,8 @@ public class SceneManager1 : MonoBehaviour
 
     public void GoPlayScene()
     {
+        //should be able to go to playScreen
+        //used in NealStartScreen->PlayButton
         SceneManager.LoadScene(PlayScene);
     }
 
@@ -42,9 +44,16 @@ public class SceneManager1 : MonoBehaviour
         SceneManager.LoadScene(DescriptionScene);
     }
 
+    public void GoOptions()
+    {
+        //should be able to go to options
+        //used in NealStartScreen->OptionButton
+    }
+
     public void QuitGame()
     {
-        PlayerPrefs.SetInt("High Score", 0);
+        //should be able to quit the game
+        //used in NealStartScreen->PlayButton
         Application.Quit();
     }
 }
