@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int height;
+    public int width;
+    public GameObject enemyPrefab;
 
-    // Update is called once per frame
-    void Update()
+    public void spawn
     {
-        
+        val position = new Vector2(Random.Range(width, width + 5), Random.Range(height, height + 5))
+        Instantiate(enemyPrefab, position, Quaternion.identity)
     }
 }
