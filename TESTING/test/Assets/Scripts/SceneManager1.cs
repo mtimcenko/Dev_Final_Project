@@ -39,6 +39,12 @@ public class SceneManager1 : MonoBehaviour
         SceneManager.LoadScene(PlayScene);
     }
 
+    public void ResumeGame()
+    {
+        //should be able to go back to playscreen and resume game
+        ////used in NealMenu->ResumeButton
+    }
+
     public void GoDescriptionScene()
     {
         SceneManager.LoadScene(DescriptionScene);
