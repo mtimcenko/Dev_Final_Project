@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,7 +15,21 @@ public class PlayerController : MonoBehaviour
     public float groundDeceleration = 0.5f;
 
     public float walkAcceleration = 0.5f;
-//    
+
+    public Rigidbody2D RB;
+
+    public Camera PlayerCam;
+
+    public Vector3 Offset;
+
+    public Transform Gun; 
+    public GameObject SelectCircle;
+    [FormerlySerializedAs("GunPosition")] public GameObject BulletSpawnPos;
+    public GameObject BulletPrefab;
+    public float BulletSpeed = 5.0f;//spawn bullets
+    public int BulletsPerSecond = 3;     //how many bullets per seconds
+    public float TimerForBullets = 0f;
+    public bool CanShoot = true;  
 //    float horizontal;
 //    float vertical;
 //    
@@ -22,7 +37,9 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       // CameraFollow.Setup(new Vector3(0, -100));
+        RB = GetComponent<Rigidbody2D>();
+        Offset = PlayerCam.transform.position;
+        // CameraFollow.Setup(new Vector3(0, -100));
     }
 
     // Update is called once per frame
@@ -30,6 +47,16 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
+        TimerForBullets += Time.deltaTime;
+        
+        //rotate player gun
+        TurnPlayer();
+        //check if player shoots with left click of mouse
+        if (Input.GetMouseButton(0))
+        {
+            PlayerShoots();
+        }
+        
         
         float moveInput = Input.GetAxisRaw("Horizontal");
         
@@ -54,16 +81,65 @@ public class PlayerController : MonoBehaviour
         }
         
         transform.Translate(velocity * Time.deltaTime);
-       //transform.Translate(velocity*Time.deltaTime);
-        
-        
+        //RB.velocity = (velocity * Time.deltaTime * 100f);
+        //transform.Translate(velocity*Time.deltaTime);
+
+
 
 //        horizontal = Input.GetAxisRaw("Horizontal");
 //        vertical = Input.GetAxisRaw("Vertical"); 
     }
 
+    void TurnPlayer()
+    {
+        Vector3 mousePos = Input.mousePosition - Offset; //direction of mouse
+        Vector3 difference = PlayerCam.ScreenToWorldPoint(mousePos) - transform.position;
+        if (difference.x > 0)
+        {
+            //Gun.rotation = Quaternion.Euler(0f, 0f, 0f);  
+        }
+        else
+        {
+            //Gun.rotation = Quaternion.Euler(0f, 180f, 0f);  
+        }
+        SelectCircle.transform.up = (difference).normalized; //rotate player
+    }
     private void FixedUpdate()
     {
        // body.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
     }
+    void PlayerShoots()
+    {
+        //If available ammo and timer cooldown
+        if (/*PlayerInven.AmmoCount > 0 && */ TimerForBullets >= 1.0 / BulletsPerSecond)
+        {
+            CanShoot = true;
+        }
+        else
+        {
+            CanShoot = false;
+        }
+
+        //Check if player inputs shoot
+        int leftMouseButton = 0;
+        if (Input.GetMouseButton(leftMouseButton) && CanShoot)
+        {
+            //Use one ammo from inventory
+            //PlayerInven.AmmoCount--;
+
+            //Spawn bullet
+            GameObject bullet = Instantiate(BulletPrefab, BulletSpawnPos.transform.position, SelectCircle.transform.rotation);
+
+            //Set velocity of bullet
+            bullet.GetComponent<Rigidbody2D>().velocity = SelectCircle.transform.up * BulletSpeed;
+
+            //reset timer for bullets
+            TimerForBullets = 0f;
+
+            //play sound
+            //AM.PlaySound("shoot");
+        }
+    }
+    
+    
 }
