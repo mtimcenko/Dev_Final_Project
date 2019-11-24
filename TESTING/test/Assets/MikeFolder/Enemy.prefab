@@ -122,6 +122,7 @@ MonoBehaviour:
   Health: 3
   PlayerPosition: {x: 0, y: 0, z: 0}
   Timer: 0
+  dead: 0
   FindPlayerPos: 0.5
 --- !u!61 &2484524415764555868
 BoxCollider2D:
