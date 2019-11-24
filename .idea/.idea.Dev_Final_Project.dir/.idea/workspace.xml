@@ -1,7 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="73a0712c-75fc-4dcc-90ce-d672461fd836" name="Default Changelist" comment="" />
+    <list default="true" id="73a0712c-75fc-4dcc-90ce-d672461fd836" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Dev_Final_Project.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Dev_Final_Project.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TESTING/test/Assets/MikeFolder/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TESTING/test/Assets/MikeFolder/PlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TESTING/test/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/TESTING/test/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,11 +16,22 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/TESTING/test/ProjectSettings/EditorBuildSettings.asset" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TESTING/test/Assets/MikeFolder.meta" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/TESTING/test/Assets/Scripts/Test4Merge.json.meta" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/TESTING/test/ProjectSettings/AudioManager.asset" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TESTING/test/Assets/Scripts/SceneManager1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TESTING/test/Assets/Scripts/SceneManager1.cs.meta" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TESTING/test/Assets/MikeFolder/FollowPlayer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TESTING/test/Assets/Scripts/Test4Merge.json.meta" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TESTING/test/ProjectSettings/AudioManager.asset" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TESTING/test/Assets/MikeFolder/BulletBehavior.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TESTING/test/Assets/MikeFolder/PlayerController.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/TESTING/test/Assets/MikeFolder/PlayerController.cs" />
+      </list>
+    </option>
   </component>
   <component name="ProjectId" id="1Tl4op1X4xvBoe8INpCAmglfn6C" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -79,7 +94,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574266353650</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="[Small changes on project settings]">
+      <created>1574627504473</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1574627504473</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -104,7 +126,8 @@
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="true" />
     <MESSAGE value="Testing" />
     <MESSAGE value="Scene Manager" />
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="[Small changes on project settings]" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Small changes on project settings]" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
