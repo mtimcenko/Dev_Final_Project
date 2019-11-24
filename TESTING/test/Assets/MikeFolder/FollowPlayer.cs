@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 public class FollowPlayer : MonoBehaviour
 {
 
@@ -12,7 +13,6 @@ public class FollowPlayer : MonoBehaviour
     public int Health = 3;
     public Vector3 PlayerPosition;
     private Rigidbody2D RB;
-
     public float Timer = 0f;
 
     public float FindPlayerPos = .5f;
@@ -24,6 +24,8 @@ public class FollowPlayer : MonoBehaviour
         // AM = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         Player = GameObject.FindWithTag("Player");
         RB = GetComponent<Rigidbody2D>();
+    
+
     }
 
     // Update is called once per frame
@@ -68,11 +70,13 @@ public class FollowPlayer : MonoBehaviour
         //Check if enemy is dead
         if (Health <= 0)
         {
+            
             //play enemy dead sound
             //AM.PlaySound("enemyDead");
 
             //destroy self
             Destroy(gameObject);
+            
         }
     }
 
@@ -89,4 +93,6 @@ public class FollowPlayer : MonoBehaviour
             LoseHealth(other.gameObject.GetComponent<BulletBehavior>().BulletDamage);
         }
     }
+
+   
 }

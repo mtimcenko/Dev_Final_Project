@@ -10,11 +10,10 @@ public class PlayerController : MonoBehaviour
 
     public Vector2 velocity;
     public Vector2 velocityY;
-
+ 
     public float speed = 5.0f;
-
+    
     public float groundDeceleration = 0.5f;
-
     public float walkAcceleration = 0.5f;
 
     public Rigidbody2D RB;
@@ -38,6 +37,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       
+      
         RB = GetComponent<Rigidbody2D>();
         Offset = PlayerCam.transform.position;
         // CameraFollow.Setup(new Vector3(0, -100));
@@ -48,6 +49,8 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
+       
+        
         TimerForBullets += Time.deltaTime;
         
         //rotate player gun
@@ -146,6 +149,8 @@ public class PlayerController : MonoBehaviour
             //AM.PlaySound("shoot");
         }
     }
+
+   
     
     
 }
