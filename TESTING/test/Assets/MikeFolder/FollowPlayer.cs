@@ -53,7 +53,7 @@ public class FollowPlayer : MonoBehaviour
     void TurnEnemy()
     {
         Vector3 dir = (PlayerPosition - transform.position).normalized;
-        transform.right = -dir;
+        transform.up = dir;
     }
 
     void MoveTowardPlayer()
