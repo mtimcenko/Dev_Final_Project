@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -94,6 +95,11 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 mousePos = Input.mousePosition - Offset; //direction of mouse
         Vector3 difference = PlayerCam.ScreenToWorldPoint(mousePos) - transform.position;
+        Vector3 direction = difference.normalized * 10f;
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            transform.position += direction;
+        }
         if (difference.x > 0)
         {
             //Gun.rotation = Quaternion.Euler(0f, 0f, 0f);  
@@ -129,7 +135,7 @@ public class PlayerController : MonoBehaviour
 
             //Spawn bullet
             GameObject bullet = Instantiate(BulletPrefab, BulletSpawnPos.transform.position, SelectCircle.transform.rotation);
-
+            
             //Set velocity of bullet
             bullet.GetComponent<Rigidbody2D>().velocity = SelectCircle.transform.up * BulletSpeed;
 
