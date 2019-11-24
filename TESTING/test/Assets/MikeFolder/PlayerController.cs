@@ -23,7 +23,10 @@ public class PlayerController : MonoBehaviour
 
     public Vector3 Offset;
 
-    public Transform Gun; 
+    public Transform Gun;
+
+    public SpriteRenderer GunSprite;
+    
     public GameObject SelectCircle;
     [FormerlySerializedAs("GunPosition")] public GameObject BulletSpawnPos;
     public GameObject BulletPrefab;
@@ -49,7 +52,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         TimerForBullets += Time.deltaTime;
-        
+
+        Debug.Log(Gun.transform.rotation.z);
         //rotate player gun
         TurnPlayer();
         //check if player shoots with left click of mouse
@@ -100,15 +104,18 @@ public class PlayerController : MonoBehaviour
         {
             transform.position += direction;
         }
-        if (difference.x > 0)
+        if (Gun.transform.rotation.z < 0)
         {
-            //Gun.rotation = Quaternion.Euler(0f, 0f, 0f);  
+            
+            GunSprite.flipY = false;
         }
         else
         {
-            //Gun.rotation = Quaternion.Euler(0f, 180f, 0f);  
+            GunSprite.flipY = true;
         }
         SelectCircle.transform.up = (difference).normalized; //rotate player
+
+    
     }
     private void FixedUpdate()
     {
