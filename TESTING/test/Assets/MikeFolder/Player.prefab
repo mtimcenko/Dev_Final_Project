@@ -336,7 +336,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3425720132479376922
 Transform:
   m_ObjectHideFlags: 0
@@ -870,6 +870,7 @@ MonoBehaviour:
   PlayerCam: {fileID: 0}
   Offset: {x: 0, y: 0, z: 0}
   Gun: {fileID: 0}
+  GunSprite: {fileID: 0}
   SelectCircle: {fileID: 7215570414571800315}
   BulletSpawnPos: {fileID: 6105937851488490043}
   BulletPrefab: {fileID: 1138502603752066282, guid: 37f4ed0433d5fd941bb86eae7507658b,
@@ -878,6 +879,10 @@ MonoBehaviour:
   BulletsPerSecond: 3
   TimerForBullets: 0
   CanShoot: 1
+  ScoreText: 
+  ScoreTextComponent: {fileID: 0}
+  HighScoreText: 'HighScore:'
+  HighScoreTextComponent: {fileID: 0}
 --- !u!1 &8134971324271803255
 GameObject:
   m_ObjectHideFlags: 0

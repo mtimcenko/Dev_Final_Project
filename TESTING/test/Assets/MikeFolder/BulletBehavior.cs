@@ -21,9 +21,9 @@ public class BulletBehavior : MonoBehaviour
         //transform.Rotate(0f, 0f, 10f);
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Wall"))
+        if (other.gameObject.CompareTag("Wall"))    
         {
             Destroy(gameObject);
         }

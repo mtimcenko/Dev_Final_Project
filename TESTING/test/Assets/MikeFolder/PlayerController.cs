@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using TMPro;
 using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
@@ -32,7 +33,47 @@ public class PlayerController : MonoBehaviour
     public float BulletSpeed = 5.0f;//spawn bullets
     public int BulletsPerSecond = 3;     //how many bullets per seconds
     public float TimerForBullets = 0f;
-    public bool CanShoot = true;  
+    public bool CanShoot = true;
+    
+    public string ScoreText = "";
+    public TMP_Text ScoreTextComponent;
+    private int _HighScoreAmount = 0;
+    public string HighScoreText = "HighScore:";
+    public TMP_Text HighScoreTextComponent;
+    
+    
+    private int _ScoreAmount = 0;
+    public int ScoreAmount
+    {
+        get
+        {
+            return _ScoreAmount;
+        }
+        set
+        {
+            _ScoreAmount = value;
+            ScoreTextComponent.text = ScoreText + _ScoreAmount.ToString();
+            if (_ScoreAmount > _HighScoreAmount)
+            {
+                HighScoreAmount = _ScoreAmount;
+            }
+        }
+    }
+    
+    public int HighScoreAmount
+    {
+        get
+        {
+            return _HighScoreAmount;
+        }
+        set
+        {
+            _HighScoreAmount = value;
+            HighScoreTextComponent.text = HighScoreText + _HighScoreAmount.ToString();
+            PlayerPrefs.SetInt ("High Score", _HighScoreAmount);
+        }
+    }
+    
 //    float horizontal;
 //    float vertical;
 //    
@@ -40,8 +81,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
-      
+        ScoreAmount = _ScoreAmount;
+        HighScoreAmount = PlayerPrefs.GetInt("High Score");
         RB = GetComponent<Rigidbody2D>();
         Offset = PlayerCam.transform.position;
         // CameraFollow.Setup(new Vector3(0, -100));
@@ -110,11 +151,11 @@ public class PlayerController : MonoBehaviour
         if (Gun.transform.rotation.z < 0)
         {
             
-            GunSprite.flipY = false;
+            //GunSprite.flipY = false;
         }
         else
         {
-            GunSprite.flipY = true;
+            //GunSprite.flipY = true;
         }
         SelectCircle.transform.up = (difference).normalized; //rotate player
 

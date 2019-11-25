@@ -75,6 +75,7 @@ public class FollowPlayer : MonoBehaviour
             //AM.PlaySound("enemyDead");
 
             //destroy self
+            Player.GetComponent<PlayerController>().ScoreAmount++;
             Destroy(gameObject);
             
         }
