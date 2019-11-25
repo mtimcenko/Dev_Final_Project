@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/MikeFolder/SandBox3.unity
+    path: Assets/MikeFolder/Scenes/SandBox3.unity
     guid: 259f1563dcc899c4eac1eae527f38618
   m_configObjects: {}
