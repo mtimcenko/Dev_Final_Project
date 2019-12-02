@@ -339,7 +339,7 @@ public class PlayerController : MonoBehaviour
         {
             yield return new WaitForSeconds(swingTime);
             SwordHitCol.enabled = false;
-            AttackTimer = .1f; //MAGIC NUMBER FOR TIME IN BETWEEN ATTACKS
+            AttackTimer = ResetTimeAttack; //MAGIC NUMBER FOR TIME IN BETWEEN ATTACKS
         }
 
         public void playerReload()
