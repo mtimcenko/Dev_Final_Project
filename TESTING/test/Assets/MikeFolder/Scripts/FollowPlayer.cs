@@ -93,6 +93,12 @@ public class FollowPlayer : MonoBehaviour
             Destroy(other.gameObject);
             LoseHealth(other.gameObject.GetComponent<BulletBehavior>().BulletDamage);
         }
+        
+        if (other.gameObject.CompareTag("Sword"))
+        {
+            Destroy(gameObject);
+        }
+            
     }
 
    
