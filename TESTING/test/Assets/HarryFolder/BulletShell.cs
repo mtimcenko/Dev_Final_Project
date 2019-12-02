@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BulletShell : MonoBehaviour
 {
-    public Sprite BulletShelSprite;
-
-    public bool isShooting;
+    public Transform Direction;
+    public Transform OriginPlayer;
+    public GameObject ShellPrefab;    
     // Start is called before the first frame update
     void Start()
     {
@@ -21,9 +21,8 @@ public class BulletShell : MonoBehaviour
 
     public void ShellEject()
     {
-        if (isShooting)
-        {
-            //instantiate();
-        }
+        GameObject Shell = Instantiate(ShellPrefab, OriginPlayer.transform.position, Quaternion.identity);
+        Shell.GetComponent<Rigidbody2D>().AddForce(Direction.transform.position-OriginPlayer.transform.position, ForceMode2D.Force);
+        
     }
 }

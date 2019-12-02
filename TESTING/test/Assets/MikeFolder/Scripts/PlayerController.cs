@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
     
     public bool IsSwordAttached = true;
     public Vector2 SwordPosition = new Vector2(-1.4f, 9.8f);
-
+    public BulletShell BulletShellScript;
 
     
     public float AttackTimer = 0f;
@@ -262,7 +262,8 @@ public class PlayerController : MonoBehaviour
 
                 //reset timer for bullets
                 TimerForBullets = 0f;
-
+                //Spawn bullet shells
+                BulletShellScript.ShellEject();
                 //play sound
                 //AM.PlaySound("shoot");
             }
