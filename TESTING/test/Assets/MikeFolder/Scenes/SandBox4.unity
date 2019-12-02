@@ -1820,6 +1820,16 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 938779636559276244, guid: f5ea893386f4605479a70030b244ccdc,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.93939394
+      objectReference: {fileID: 0}
+    - target: {fileID: 938779636559276244, guid: f5ea893386f4605479a70030b244ccdc,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.6666666
+      objectReference: {fileID: 0}
     - target: {fileID: 7576721522280219232, guid: f5ea893386f4605479a70030b244ccdc,
         type: 3}
       propertyPath: m_IsActive
@@ -1976,6 +1986,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3807684979131209048, guid: f5ea893386f4605479a70030b244ccdc,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 3807684979131209048, guid: f5ea893386f4605479a70030b244ccdc,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 4267247815442873063, guid: f5ea893386f4605479a70030b244ccdc,
         type: 3}
       propertyPath: m_IsActive
@@ -2001,6 +2021,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8222796339067059189, guid: f5ea893386f4605479a70030b244ccdc,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 2.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 8222796339067059189, guid: f5ea893386f4605479a70030b244ccdc,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 2.56
       objectReference: {fileID: 0}
     - target: {fileID: 9111000008657251063, guid: f5ea893386f4605479a70030b244ccdc,
         type: 3}
@@ -2075,7 +2105,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.56, y: 2.56}
+  m_Size: {x: 128, y: 128}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -3446,14 +3476,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerLight
       objectReference: {fileID: 0}
-    - target: {fileID: 524835130, guid: fea54a61f9054e2408b1568949c971e2, type: 3}
-      propertyPath: m_Offset.x
-      value: -0.020813972
-      objectReference: {fileID: 0}
-    - target: {fileID: 524835130, guid: fea54a61f9054e2408b1568949c971e2, type: 3}
-      propertyPath: m_Size.x
-      value: 1.1889343
-      objectReference: {fileID: 0}
     - target: {fileID: 7270636819968846821, guid: fea54a61f9054e2408b1568949c971e2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3509,6 +3531,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 524835130, guid: fea54a61f9054e2408b1568949c971e2, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.020813972
+      objectReference: {fileID: 0}
+    - target: {fileID: 524835130, guid: fea54a61f9054e2408b1568949c971e2, type: 3}
+      propertyPath: m_Size.x
+      value: 1.1889343
+      objectReference: {fileID: 0}
     - target: {fileID: 6641369206423342817, guid: fea54a61f9054e2408b1568949c971e2,
         type: 3}
       propertyPath: PlayerCam
@@ -3524,6 +3554,16 @@ PrefabInstance:
       propertyPath: HighScoreTextComponent
       value: 
       objectReference: {fileID: 1217608329}
+    - target: {fileID: 6641369206423342817, guid: fea54a61f9054e2408b1568949c971e2,
+        type: 3}
+      propertyPath: ResetTimeAttack
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6641369206423342817, guid: fea54a61f9054e2408b1568949c971e2,
+        type: 3}
+      propertyPath: SwordHitTime
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 6251813129558751517, guid: fea54a61f9054e2408b1568949c971e2,
         type: 3}
       propertyPath: m_Controller
