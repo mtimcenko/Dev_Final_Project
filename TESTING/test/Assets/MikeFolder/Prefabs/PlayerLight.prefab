@@ -1,5 +1,75 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &61481915
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 61481916}
+  - component: {fileID: 61481917}
+  m_Layer: 10
+  m_Name: SwordAura
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &61481916
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 61481915}
+  m_LocalRotation: {x: -0, y: -0, z: -0.021257572, w: 0.99977404}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7792430671808979599}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &61481917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 61481915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LightType: 3
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0.5
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_LightVolumeOpacity: 0
+  m_ApplyToSortingLayers: 00000000
+  m_LightCookieSprite: {fileID: 0}
+  m_UseNormalMap: 0
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 3.936131
+  m_PointLightDistance: 3
+  m_PointLightQuality: 1
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
 --- !u!1 &270244266
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,8 +161,9 @@ GameObject:
   - component: {fileID: 524835129}
   - component: {fileID: 524835131}
   - component: {fileID: 524835130}
+  - component: {fileID: 524835132}
   m_Layer: 10
-  m_Name: New Sprite (1)
+  m_Name: SwordCol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,7 +181,7 @@ Transform:
   m_LocalScale: {x: 15.184953, y: 64.883705, z: 1}
   m_Children: []
   m_Father: {fileID: 7792430671808979599}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &524835131
 SpriteRenderer:
@@ -171,10 +242,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.026074886, y: 0.015255988}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -185,8 +256,21 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.0521498, y: 0.969488}
   m_EdgeRadius: 0
+--- !u!114 &524835132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524835128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfe1ab09dc510248afe1ce159547e7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SwordDamage: 2
 --- !u!1 &1301380243
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,7 +619,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: e5cd148724a2f97449f2772d1f15e009, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -570,7 +654,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7792430671808979599}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6076945065564946191
 MonoBehaviour:
@@ -587,7 +671,7 @@ MonoBehaviour:
   m_LightType: 2
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 0, b: 0.36335707, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.36470604, a: 1}
   m_Intensity: 1000
   m_LightVolumeOpacity: 0.949
   m_ApplyToSortingLayers: 00000000
@@ -658,8 +742,8 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.494
-  m_Color: {r: 1, g: 0.09433961, b: 0.09433961, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 2
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 00000000
   m_LightCookieSprite: {fileID: 0}
@@ -675,7 +759,7 @@ MonoBehaviour:
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
-  m_ShapeLightFalloffSize: 10
+  m_ShapeLightFalloffSize: 50
   m_ShapeLightFalloffOffset: {x: 0, y: 0}
   m_ShapePath:
   - {x: -5.097376, y: 18.301773, z: 0}
@@ -773,12 +857,12 @@ GameObject:
   - component: {fileID: 6629682407608727704}
   - component: {fileID: 7798938316827406033}
   m_Layer: 0
-  m_Name: Circle (1)
+  m_Name: RightEye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6629682407608727704
 Transform:
   m_ObjectHideFlags: 0
@@ -951,7 +1035,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7792430671808979599}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7076618702208276071
 SpriteRenderer:
@@ -1093,12 +1177,12 @@ GameObject:
   - component: {fileID: 5109779309034556826}
   - component: {fileID: 4624292073829754066}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: LeftEye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5109779309034556826
 Transform:
   m_ObjectHideFlags: 0
@@ -1303,7 +1387,7 @@ Animator:
   m_GameObject: {fileID: 4778652471587273241}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 44b60f15e7509fd49be47b85c7d7ac7a, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1337,14 +1421,15 @@ Transform:
   m_GameObject: {fileID: 4834030213397070352}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1}
   m_Children:
   - {fileID: 6645119449160903290}
   - {fileID: 2398282822597046290}
   - {fileID: 8590200387286048942}
+  - {fileID: 524835129}
   - {fileID: 6119212177047128351}
   - {fileID: 59184954460754623}
-  - {fileID: 524835129}
+  - {fileID: 61481916}
   m_Father: {fileID: 8540493252123188943}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1681,7 +1766,7 @@ GameObject:
   - component: {fileID: 4958607512859382623}
   - component: {fileID: 6864347678978763900}
   m_Layer: 0
-  m_Name: Gun Position
+  m_Name: PlayerSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1763,7 +1848,7 @@ GameObject:
   - component: {fileID: 6645119449160903290}
   - component: {fileID: 7939110565670202036}
   m_Layer: 10
-  m_Name: Point Light 2D
+  m_Name: Flashlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1798,8 +1883,8 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 0.735849, b: 0.735849, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 1, g: 0.9343138, b: 0.7372549, a: 1}
+  m_Intensity: 2
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 00000000
   m_LightCookieSprite: {fileID: 0}
@@ -1986,10 +2071,13 @@ MonoBehaviour:
   SwordRotation: 1600
   Sword: {fileID: 4778652471587273241}
   SwordHolder: {fileID: 1295440617098069573}
+  SwordHitCol: {fileID: 524835130}
+  SwordHitTime: 0.7
+  ResetTimeAttack: 0.1
   IsSwordAttached: 1
   SwordPosition: {x: 1.89, y: 6.76}
   AttackTimer: 0
-  ah: 0
+  PressedSpace: 0
 --- !u!1 &7702249426796528821
 GameObject:
   m_ObjectHideFlags: 0
@@ -2169,7 +2257,7 @@ GameObject:
   - component: {fileID: 5431806517057532927}
   - component: {fileID: 6795194376152166642}
   m_Layer: 0
-  m_Name: Point Light 2D (1)
+  m_Name: PlayerAura
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
