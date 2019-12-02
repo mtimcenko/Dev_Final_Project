@@ -1519,6 +1519,30 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1382424052}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &494533134 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7270636819968846823, guid: fea54a61f9054e2408b1568949c971e2,
+    type: 3}
+  m_PrefabInstance: {fileID: 8643436166955673756}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &494533139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494533134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c0bcdcbb0a4df647a04423e376dde00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pMovement: {fileID: 0}
+  PlayerTransform: {fileID: 0}
+  dashPos: {x: 0, y: 0}
+  speedInc: 50
+  accelInc: 15
+  groundInc: 0
 --- !u!1 &525826422
 GameObject:
   m_ObjectHideFlags: 0
@@ -3557,7 +3581,7 @@ PrefabInstance:
     - target: {fileID: 6641369206423342817, guid: fea54a61f9054e2408b1568949c971e2,
         type: 3}
       propertyPath: ResetTimeAttack
-      value: 5
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 6641369206423342817, guid: fea54a61f9054e2408b1568949c971e2,
         type: 3}
@@ -3638,6 +3662,11 @@ PrefabInstance:
     - target: {fileID: 2876079761548138686, guid: fea54a61f9054e2408b1568949c971e2,
         type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7270636819968846746, guid: fea54a61f9054e2408b1568949c971e2,
+        type: 3}
+      propertyPath: m_CollisionDetection
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
