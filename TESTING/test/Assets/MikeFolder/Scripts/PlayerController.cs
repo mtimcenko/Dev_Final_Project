@@ -151,14 +151,14 @@ public class PlayerController : MonoBehaviour
         {
             reloadSR.enabled = false;
           //  crossHairSR.sprite = crossHairSprite;
-            ScoreTextComponent.text = "Ammo: " + ammoCount;
+            ammoComponent.text = "Ammo: " + ammoCount;
         }
         else
         {
             reloadSR.GetComponent<Animator>().SetTrigger("reload");
             reloadSR.enabled = false;
            // crossHairSR.sprite = reloadSprite;
-            ScoreTextComponent.text = "Reloading!";
+            ammoComponent.text = "Reloading!";
         }
 
         // Debug.Log(ammoCount);
