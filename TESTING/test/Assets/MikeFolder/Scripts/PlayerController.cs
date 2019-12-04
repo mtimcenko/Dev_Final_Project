@@ -80,6 +80,8 @@ public class PlayerController : MonoBehaviour
     private Transform reloadTransform;
     
     public float AttackTimer = 0f;
+
+    public AudioManager AM;
     public int ScoreAmount 
     {
         get
@@ -170,7 +172,13 @@ public class PlayerController : MonoBehaviour
         //check if player shoots with left click of mouse
         if (Input.GetMouseButton(0) && reloading == false && ammoCount > 0)
         {
+            
             PlayerShoots();
+        }
+
+        if (Input.GetMouseButton(0)&& ammoCount <= 0)
+        {
+            AM.PlaySound("empty");
         }
         //RELOAD
         if (Input.GetKeyDown(KeyCode.R)|| Input.GetKey(KeyCode.RightShift) && reloading == false)
@@ -301,7 +309,7 @@ public class PlayerController : MonoBehaviour
 
                 //Set velocity of bullet
                 bullet.GetComponent<Rigidbody2D>().velocity = SelectCircle.transform.up * BulletSpeed;
-
+                AM.PlaySound("Shooting");
                 //reset timer for bullets
                 TimerForBullets = 0f;
 
@@ -330,6 +338,8 @@ public class PlayerController : MonoBehaviour
 
         public void ThrowSword()
         {
+            AM.PlaySound("swordYeet");
+
             SwordRB.drag = 4f;
             SwordRB.angularDrag = 1f;
             SwordRB.velocity = SelectCircle.transform.up * SwordThrowSpeed;
@@ -367,6 +377,7 @@ public class PlayerController : MonoBehaviour
 
         IEnumerator SwordSwing(float swingTime)
         {
+            AM.PlaySound("swordSwing");
             yield return new WaitForSeconds(swingTime);
             SwordHitCol.enabled = false;
             AttackTimer = ResetTimeAttack; //MAGIC NUMBER FOR TIME IN BETWEEN ATTACKS
@@ -375,6 +386,7 @@ public class PlayerController : MonoBehaviour
         public void playerReload()
         {
             StartCoroutine(reloadPlayer());
+            
             
             
         }

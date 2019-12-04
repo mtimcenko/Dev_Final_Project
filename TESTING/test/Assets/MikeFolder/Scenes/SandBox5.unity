@@ -1070,12 +1070,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SoundEffects:
-  - Name: Arc
-    Clip: {fileID: 8300000, guid: 074007935912cfa429f496d909778e3d, type: 3}
+  - Name: Shooting
+    Clip: {fileID: 8300000, guid: 9d52692f7e13e4b5a9cb70440ba30d9e, type: 3}
     Volume: 1
     Pitch: 1
-    PlayOnAwake: 1
-    Loop: 1
+    PlayOnAwake: 0
+    Loop: 0
+  - Name: empty
+    Clip: {fileID: 8300000, guid: 1016e1ff371f247b593ba9d972cf9266, type: 3}
+    Volume: 1
+    Pitch: 1
+    PlayOnAwake: 0
+    Loop: 0
+  - Name: swordSwing
+    Clip: {fileID: 8300000, guid: 4be3f0ceaff364cebba6ad86e4c160cf, type: 3}
+    Volume: 1
+    Pitch: 1
+    PlayOnAwake: 0
+    Loop: 0
+  - Name: swordYeet
+    Clip: {fileID: 8300000, guid: 304df00eb5a0a4c5390fdec367e6b99e, type: 3}
+    Volume: 1
+    Pitch: 1
+    PlayOnAwake: 0
+    Loop: 0
   OneShotAudioSource: {fileID: 85849797}
 --- !u!4 &85849799
 Transform:
@@ -4134,6 +4152,11 @@ PrefabInstance:
       propertyPath: reloadSR
       value: 
       objectReference: {fileID: 1380657382}
+    - target: {fileID: 6641369206423342817, guid: fea54a61f9054e2408b1568949c971e2,
+        type: 3}
+      propertyPath: AM
+      value: 
+      objectReference: {fileID: 85849798}
     - target: {fileID: 6251813129558751517, guid: fea54a61f9054e2408b1568949c971e2,
         type: 3}
       propertyPath: m_Controller

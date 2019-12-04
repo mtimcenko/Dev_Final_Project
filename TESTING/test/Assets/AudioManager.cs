@@ -47,7 +47,7 @@ public class AudioManager : MonoBehaviour
             //save audio sources references into dictionary
             AudioSources.Add(entry.Name, source);
         }
-        PlaySound("Arc");
+        //sPlaySound("Arc");
     }
 
     //find audiosource based on string, used with PlaySound()
