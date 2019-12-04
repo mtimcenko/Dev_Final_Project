@@ -151,14 +151,14 @@ public class PlayerController : MonoBehaviour
         {
             reloadSR.enabled = false;
           //  crossHairSR.sprite = crossHairSprite;
-            ScoreTextComponent.text = "Ammo: " + ammoCount;
+            ammoComponent.text = "Ammo: " + ammoCount;
         }
         else
         {
             reloadSR.GetComponent<Animator>().SetTrigger("reload");
             reloadSR.enabled = false;
            // crossHairSR.sprite = reloadSprite;
-            ScoreTextComponent.text = "Reloading!";
+            ammoComponent.text = "Reloading!";
         }
 
         // Debug.Log(ammoCount);
@@ -173,7 +173,7 @@ public class PlayerController : MonoBehaviour
             PlayerShoots();
         }
         //RELOAD
-        if (Input.GetKeyDown(KeyCode.R) && reloading == false)
+        if (Input.GetKeyDown(KeyCode.R)|| Input.GetKey(KeyCode.RightShift) && reloading == false)
         {
            // Debug.Log("here?");
             playerReload();
@@ -380,7 +380,6 @@ public class PlayerController : MonoBehaviour
         }
         IEnumerator reloadPlayer()
         {
-            ScoreTextComponent.text = "Reloading!";
             CrossHair.GetComponent<SpriteRenderer>().sprite = reloadSprite;
             CrossHair.GetComponent<Animator>().SetTrigger("reload");
             reloading = true;
@@ -388,7 +387,5 @@ public class PlayerController : MonoBehaviour
             ammoCount = 20;
             reloading = false;
             CrossHair.GetComponent<SpriteRenderer>().sprite = crossHairSprite;
-
-          
         }
     }
