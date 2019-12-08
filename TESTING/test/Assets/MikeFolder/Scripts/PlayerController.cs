@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using TMPro;
+using UnityEngine.Experimental.Rendering.LWRP;
 using UnityEngine.SceneManagement;
+using Random = System.Random;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,7 +14,7 @@ public class PlayerController : MonoBehaviour
 
     public Vector2 velocity;
     public Vector2 velocityY;
- 
+    public bool OutBoundaries = false;
     public float speed = 5.0f;
     
     public float groundDeceleration = 0.5f;
@@ -79,7 +81,20 @@ public class PlayerController : MonoBehaviour
     public GameObject reloadGO;
     private Transform reloadTransform;
     
-    public float AttackTimer = 0f;
+    private float AttackTimer = 0f;
+    private float HoldSpaceTimer = 0f;
+    public float HoldSpaceDash = .3f;
+    
+    public TextMeshProUGUI AliveTextMesh;
+    private float AliveTimer = 0f;
+    private float LightingTimer = 0f;
+    public float CurrentChangeLighting = 10f;
+    public Vector2 ChangeLightingRange = new Vector2(20, 30);
+    public bool IsLightsOn = true;
+    public Color[] LightingColors;
+    public Light2D GlobalLight;
+
+    public BoxCollider2D PickUpCol;
     public int ScoreAmount 
     {
         get
@@ -139,30 +154,53 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
 
     [FormerlySerializedAs("ah")] public bool PressedSpace = false;
-
+    
     private static readonly int Swing = Animator.StringToHash("Swing");
     //private static readonly int IsSwinging = Animator.StringToHash("IsSwinging");
     //private static readonly int Swing = Animator.StringToHash("Swing");
 
     void Update()
     {
+        //Change Lighting
+        AliveTimer += Time.deltaTime;
+        LightingTimer += Time.deltaTime;
+        AliveTextMesh.text = Math.Round(AliveTimer, 2).ToString();
+        //EVERY 30 seconds, change lighting
+        if (LightingTimer >= CurrentChangeLighting)
+        {
+            if (IsLightsOn)
+            {
+                IsLightsOn = false;
+                StartCoroutine(LightsOff());
+                //lights transition
+            }
+            else
+            {
+                IsLightsOn = true;
+                StartCoroutine(LightsOn());
+            }
 
+            CurrentChangeLighting = UnityEngine.Random.Range(ChangeLightingRange.x, ChangeLightingRange.y);
+            //float a = Random.Range(1f, 2f);
+            LightingTimer = 0f;
+        }
+        
         if (reloading == false)
         {
             reloadSR.enabled = false;
-          //  crossHairSR.sprite = crossHairSprite;
+            //  crossHairSR.sprite = crossHairSprite;
             ammoComponent.text = "Ammo: " + ammoCount;
         }
         else
         {
             reloadSR.GetComponent<Animator>().SetTrigger("reload");
             reloadSR.enabled = false;
-           // crossHairSR.sprite = reloadSprite;
+            // crossHairSR.sprite = reloadSprite;
             ammoComponent.text = "Reloading!";
         }
 
         // Debug.Log(ammoCount);
-        
+
         TimerForBullets += Time.deltaTime;
         //Debug.Log(Gun.transform.rotation.z);
         //rotate player gun
@@ -172,15 +210,19 @@ public class PlayerController : MonoBehaviour
         {
             PlayerShoots();
         }
+
         //RELOAD
         if (Input.GetKeyDown(KeyCode.R) && reloading == false)
         {
-           // Debug.Log("here?");
+            // Debug.Log("here?");
             playerReload();
         }
+
+        
+        
         
         //THROW SWORD
-        if (Input.GetKeyUp(KeyCode.Space) && !PressedSpace && AttackTimer <= 0)
+        if (Input.GetKeyUp(KeyCode.Space) && !PressedSpace && AttackTimer <= 0 && HoldSpaceTimer < HoldSpaceDash)
         {
             //ShootGrenade();
             PressedSpace = true;
@@ -189,7 +231,17 @@ public class PlayerController : MonoBehaviour
         }
         else if (!IsSwordAttached)
         {
-            CatchSword();
+            print(SwordRB.velocity.magnitude);
+            if (SwordRB.velocity.magnitude < 1)
+            {
+                SwordHitCol.enabled = false;
+            }
+
+            if (Input.GetKeyUp(KeyCode.Space) && !IsSwordAttached)
+            {
+                CatchSword();
+            }
+        
         }
         //if sword attached not thrown
         else
@@ -211,42 +263,54 @@ public class PlayerController : MonoBehaviour
             {
                 AttackTimer -= Time.deltaTime;
             }
-            
-            
+
+
         }
 
         float moveInput = Input.GetAxisRaw("Horizontal");
+        if (moveInput != 0)
+        {
+            velocity.x = Mathf.MoveTowards(velocity.x, speed * moveInput, walkAcceleration * Time.deltaTime);
+        }
+        else
+        {
+            velocity.x = Mathf.MoveTowards(velocity.x, 0, groundDeceleration * Time.deltaTime);
+        }
 
-            if (moveInput != 0)
-            {
-                velocity.x = Mathf.MoveTowards(velocity.x, speed * moveInput, walkAcceleration * Time.deltaTime);
-            }
-            else
-            {
-                velocity.x = Mathf.MoveTowards(velocity.x, 0, groundDeceleration * Time.deltaTime);
-            }
+        float moveInputVertical = Input.GetAxis("Vertical");
+        if (moveInputVertical != 0)
+        {
+            velocity.y = Mathf.MoveTowards(velocity.y, speed * moveInputVertical,
+                walkAcceleration * Time.deltaTime);
+        }
+        else
+        {
+            velocity.y = Mathf.MoveTowards(velocity.y, 0, groundDeceleration * Time.deltaTime);
+        }
 
-            float moveInputVertical = Input.GetAxis("Vertical");
-
-            if (moveInputVertical != 0)
-            {
-                velocity.y = Mathf.MoveTowards(velocity.y, speed * moveInputVertical,
-                    walkAcceleration * Time.deltaTime);
-            }
-            else
-            {
-                velocity.y = Mathf.MoveTowards(velocity.y, 0, groundDeceleration * Time.deltaTime);
-            }
-
+        if (!OutBoundaries)
+        {
             transform.Translate(velocity * Time.deltaTime);
-            //RB.velocity = (velocity * Time.deltaTime * 100f);
-            //transform.Translate(velocity*Time.deltaTime);
-
-
+        }
+        
+        
+        
+        if (Input.GetKey(KeyCode.Space))
+        {
+            HoldSpaceTimer += Time.deltaTime;
+        }
+        else
+        {
+            HoldSpaceTimer = 0f;
+        }
+    
+        //RB.velocity = (velocity * Time.deltaTime * 100f);
+        //transform.Translate(velocity*Time.deltaTime
 
 //        horizontal = Input.GetAxisRaw("Horizontal");
 //        vertical = Input.GetAxisRaw("Vertical"); 
         }
+    
 
     void TurnPlayer()
         {
@@ -318,6 +382,11 @@ public class PlayerController : MonoBehaviour
                 //Destroy(gameObject);
                 //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
+            
+            if (other.gameObject.GetComponent<Collider2D>() == PickUpCol)
+            {
+                CatchSword();
+            }
         }
 
         public void ShootGrenade()
@@ -338,31 +407,30 @@ public class PlayerController : MonoBehaviour
             Physics.IgnoreLayerCollision(10, 11, false);
             SwordCol.isTrigger = false;
             SwordHitCol.enabled = true; //make sure to disable once stops moving
+            StartCoroutine(EnableCatchSword());
         }
 
 
         public void CatchSword()
         {
-            if (Input.GetKeyUp(KeyCode.Space) && !IsSwordAttached)
-            {
-                //print(Sword.transform.position);
-                transform.position = Sword.transform.position;
-                Sword.transform.parent = SwordHolder.transform;
-                Sword.transform.localPosition = SwordPosition;
-                Sword.transform.rotation = SelectCircle.transform.rotation;
-                SwordRB.velocity = Vector2.zero;
-                SwordRB.drag = 1000000f;
-                SwordRB.angularDrag = 1000000f;
-                SwordRB.SetRotation(0);
-                IsSwordAttached = true;
-                PressedSpace = false;
-                SwordCol.isTrigger = true;
-                SwordHitCol.enabled = false;
-                Physics.IgnoreLayerCollision(10, 11, true);
-                
-                //ABLE TO SWING
-                AttackTimer = 0f;
-            }
+            //print(Sword.transform.position);
+            transform.position = Sword.transform.position;
+            Sword.transform.parent = SwordHolder.transform;
+            Sword.transform.localPosition = SwordPosition;
+            Sword.transform.rotation = SelectCircle.transform.rotation;
+            SwordRB.velocity = Vector2.zero;
+            SwordRB.drag = 1000000f;
+            SwordRB.angularDrag = 1000000f;
+            SwordRB.SetRotation(0);
+            IsSwordAttached = true;
+            PressedSpace = false;
+            SwordCol.isTrigger = true;
+            SwordHitCol.enabled = false;
+            Physics.IgnoreLayerCollision(10, 11, true);
+            PickUpCol.enabled = false;
+            //ABLE TO SWING
+            AttackTimer = 0f;
+            
         }
 
         IEnumerator SwordSwing(float swingTime)
@@ -391,4 +459,45 @@ public class PlayerController : MonoBehaviour
 
           
         }
-    }
+
+        IEnumerator LightsOff()
+        {
+            GlobalLight.enabled = false;
+            yield return new WaitForSeconds(.6f);
+            GlobalLight.enabled = true;
+            yield return new WaitForSeconds(.4f);
+            GlobalLight.enabled = false;
+            yield return new WaitForSeconds(.3f);
+            GlobalLight.enabled = true;
+            yield return new WaitForSeconds(.2f);
+            GlobalLight.enabled = false;
+        }
+        
+        IEnumerator LightsOn()
+        {
+            GlobalLight.enabled = true;
+            yield return new WaitForSeconds(.6f);
+            GlobalLight.enabled = false;
+            yield return new WaitForSeconds(.4f);
+            GlobalLight.enabled = true;
+            yield return new WaitForSeconds(.3f);
+            GlobalLight.enabled = false;
+            yield return new WaitForSeconds(.2f);
+            GlobalLight.enabled = true;
+        }
+
+        public void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.GetComponent<Collider2D>() == PickUpCol)
+            {
+                CatchSword();
+            }
+        }
+
+        IEnumerator EnableCatchSword()
+        {
+            float delay = .3f;
+            yield return new WaitForSeconds(delay);
+            PickUpCol.enabled = true;
+        }
+}
