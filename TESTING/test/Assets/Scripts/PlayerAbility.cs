@@ -12,9 +12,8 @@ public class PlayerAbility : MonoBehaviour
     public float speedInc = 10f;
     public float accelInc = 5f;
     public float groundInc = 0f;
-    
-    
 
+    public Vector2 Boundaries;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,24 +54,29 @@ public class PlayerAbility : MonoBehaviour
 */
 
     //Increasing speed on spacebar
+        if (transform.position.x < Boundaries.x && transform.position.x > -Boundaries.x &&
+            transform.position.y < Boundaries.y
+            && transform.position.y > -Boundaries.y)
+        {
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                pMovement.speed += speedInc;
+                pMovement.walkAcceleration += accelInc;
+                pMovement.groundDeceleration += groundInc;
     
+            
+            }
     
-    if (Input.GetKeyDown(KeyCode.B))
-    {
-        pMovement.speed += speedInc;
-        pMovement.walkAcceleration += accelInc;
-        pMovement.groundDeceleration += groundInc;
- 
-        
-    }
-
-    //Reset speed 
-    if (Input.GetKeyUp(KeyCode.B))
-    {
-        pMovement.speed -= speedInc;
-        pMovement.walkAcceleration -= accelInc;
-        pMovement.groundDeceleration -= groundInc;
-    }
+            //Reset speed 
+            
+        }
+        if (Input.GetKeyUp(KeyCode.B))
+        {
+            pMovement.speed -= speedInc;
+            pMovement.walkAcceleration -= accelInc;
+            pMovement.groundDeceleration -= groundInc;
+        }
+    
 
     }
 }

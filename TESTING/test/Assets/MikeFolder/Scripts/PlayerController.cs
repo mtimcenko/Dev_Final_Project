@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     private int _HighScoreAmount = 0;
     public string HighScoreText = "HighScore:";
     public TMP_Text HighScoreTextComponent;
-    
+    public TMP_Text ammoComponent;
     
     private int _ScoreAmount = 0;
 
@@ -65,10 +65,22 @@ public class PlayerController : MonoBehaviour
     public bool IsSwordAttached = true;
     public Vector2 SwordPosition = new Vector2(-1.4f, 9.8f);
 
+    public int ammoCount = 20;
+    public bool reloading = false;
+    public float reloadTime = 2.0f;
+    public Sprite reloadSprite;
+    public Renderer reloadSR;
 
+    public GameObject CrossHair;
+    private SpriteRenderer crossHairSR;
+    private Transform crossHairTransform;
+    public Sprite crossHairSprite;
+
+    public GameObject reloadGO;
+    private Transform reloadTransform;
     
     public float AttackTimer = 0f;
-    public int ScoreAmount
+    public int ScoreAmount 
     {
         get
         {
@@ -106,6 +118,11 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        crossHairTransform = CrossHair.GetComponent<Transform>();
+        reloadSR = reloadGO.GetComponent<SpriteRenderer>();
+        reloadTransform = reloadGO.GetComponent<Transform>();
+        crossHairSR = CrossHair.GetComponent<SpriteRenderer>();
         SwordCol = Sword.GetComponent<BoxCollider2D>();
         SwordRB = Sword.GetComponent<Rigidbody2D>();
         SwordAnimator = SwordHolder.GetComponent<Animator>();
@@ -129,17 +146,40 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+
+        if (reloading == false)
+        {
+            reloadSR.enabled = false;
+          //  crossHairSR.sprite = crossHairSprite;
+            ammoComponent.text = "Ammo: " + ammoCount;
+        }
+        else
+        {
+            reloadSR.GetComponent<Animator>().SetTrigger("reload");
+            reloadSR.enabled = false;
+           // crossHairSR.sprite = reloadSprite;
+            ammoComponent.text = "Reloading!";
+        }
+
+        // Debug.Log(ammoCount);
         
         TimerForBullets += Time.deltaTime;
         //Debug.Log(Gun.transform.rotation.z);
         //rotate player gun
         TurnPlayer();
         //check if player shoots with left click of mouse
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && reloading == false && ammoCount > 0)
         {
             PlayerShoots();
         }
-
+        //RELOAD
+        if (Input.GetKeyDown(KeyCode.R)|| Input.GetKey(KeyCode.RightShift) && reloading == false)
+        {
+           // Debug.Log("here?");
+            playerReload();
+        }
+        
+        //THROW SWORD
         if (Input.GetKeyUp(KeyCode.Space) && !PressedSpace && AttackTimer <= 0)
         {
             //ShootGrenade();
@@ -236,6 +276,7 @@ public class PlayerController : MonoBehaviour
 
         void PlayerShoots()
         {
+            
             //If available ammo and timer cooldown
             if ( /*PlayerInven.AmmoCount > 0 && */ TimerForBullets >= 1.0 / BulletsPerSecond)
             {
@@ -254,6 +295,7 @@ public class PlayerController : MonoBehaviour
                 //PlayerInven.AmmoCount--;
 
                 //Spawn bullet
+                ammoCount--;
                 GameObject bullet = Instantiate(BulletPrefab, BulletSpawnPos.transform.position,
                     SelectCircle.transform.rotation);
 
@@ -327,6 +369,23 @@ public class PlayerController : MonoBehaviour
         {
             yield return new WaitForSeconds(swingTime);
             SwordHitCol.enabled = false;
-            AttackTimer = .1f; //MAGIC NUMBER FOR TIME IN BETWEEN ATTACKS
+            AttackTimer = ResetTimeAttack; //MAGIC NUMBER FOR TIME IN BETWEEN ATTACKS
+        }
+
+        public void playerReload()
+        {
+            StartCoroutine(reloadPlayer());
+            
+            
+        }
+        IEnumerator reloadPlayer()
+        {
+            CrossHair.GetComponent<SpriteRenderer>().sprite = reloadSprite;
+            CrossHair.GetComponent<Animator>().SetTrigger("reload");
+            reloading = true;
+            yield return new WaitForSeconds(reloadTime);
+            ammoCount = 20;
+            reloading = false;
+            CrossHair.GetComponent<SpriteRenderer>().sprite = crossHairSprite;
         }
     }
