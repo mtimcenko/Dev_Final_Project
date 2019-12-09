@@ -95,6 +95,12 @@ public class PlayerController : MonoBehaviour
     public Light2D GlobalLight;
 
     public BoxCollider2D PickUpCol;
+
+    public bool SwordCircleSwing = false;
+    
+    public float Rotation = 15.0f;
+
+    public int SwordDamage = 2;
     public int ScoreAmount 
     {
         get
@@ -193,7 +199,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            reloadSR.GetComponent<Animator>().SetTrigger("reload");
+            //reloadSR.GetComponent<Animator>().SetTrigger("reload");
             reloadSR.enabled = false;
             // crossHairSR.sprite = reloadSprite;
             ammoComponent.text = "Reloading!";
@@ -204,7 +210,15 @@ public class PlayerController : MonoBehaviour
         TimerForBullets += Time.deltaTime;
         //Debug.Log(Gun.transform.rotation.z);
         //rotate player gun
-        TurnPlayer();
+        if (SwordCircleSwing)
+        {
+            transform.Rotate(0, 0, Rotation);
+        }
+        else
+        {
+            TurnPlayer();
+        }
+
         //check if player shoots with left click of mouse
         if (Input.GetMouseButton(0) && reloading == false && ammoCount > 0)
         {
@@ -231,7 +245,6 @@ public class PlayerController : MonoBehaviour
         }
         else if (!IsSwordAttached)
         {
-            print(SwordRB.velocity.magnitude);
             if (SwordRB.velocity.magnitude < 1)
             {
                 SwordHitCol.enabled = false;
@@ -310,8 +323,8 @@ public class PlayerController : MonoBehaviour
 //        horizontal = Input.GetAxisRaw("Horizontal");
 //        vertical = Input.GetAxisRaw("Vertical"); 
         }
-    
 
+    
     void TurnPlayer()
         {
             Vector3 mousePos = Input.mousePosition - Offset; //direction of mouse
@@ -329,8 +342,7 @@ public class PlayerController : MonoBehaviour
             }
 
             SelectCircle.transform.up = (difference).normalized; //rotate player
-
-
+            
         }
 
         private void FixedUpdate()
@@ -369,6 +381,8 @@ public class PlayerController : MonoBehaviour
                 //reset timer for bullets
                 TimerForBullets = 0f;
 
+
+                BulletShell();
                 //play sound
                 //AM.PlaySound("shoot");
             }
@@ -425,12 +439,16 @@ public class PlayerController : MonoBehaviour
             IsSwordAttached = true;
             PressedSpace = false;
             SwordCol.isTrigger = true;
-            SwordHitCol.enabled = false;
+            //temp true until circle sword swing is done
+            SwordHitCol.enabled = true;
             Physics.IgnoreLayerCollision(10, 11, true);
             PickUpCol.enabled = false;
             //ABLE TO SWING
             AttackTimer = 0f;
-            
+
+            SwordCircleSwing = true;
+            StartCoroutine(StopSwordCircleSwing());
+
         }
 
         IEnumerator SwordSwing(float swingTime)
@@ -448,7 +466,7 @@ public class PlayerController : MonoBehaviour
         }
         IEnumerator reloadPlayer()
         {
-            ScoreTextComponent.text = "Reloading!";
+            //ScoreTextComponent.text = "Reloading!";
             CrossHair.GetComponent<SpriteRenderer>().sprite = reloadSprite;
             CrossHair.GetComponent<Animator>().SetTrigger("reload");
             reloading = true;
@@ -492,6 +510,26 @@ public class PlayerController : MonoBehaviour
             {
                 CatchSword();
             }
+            if (other.gameObject.CompareTag("Ammo"))
+            {
+                if (StoredAmmo <= 125)
+                {
+                    StoredAmmo += 5;
+                }
+                else
+                {
+                    StoredAmmo += 5;
+                    if (StoredAmmo > 130)
+                    {
+                        StoredAmmo -= (StoredAmmo -= 130);
+                        Debug.Log("AmmoFull");
+                    }
+                }
+                Debug.Log(StoredAmmo);
+
+            }
+            
+            
         }
 
         IEnumerator EnableCatchSword()
@@ -500,4 +538,48 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForSeconds(delay);
             PickUpCol.enabled = true;
         }
+
+        IEnumerator StopSwordCircleSwing()
+        {
+            float delay = .7f;
+            yield return new WaitForSeconds(delay);
+            SwordCircleSwing = false;
+            SwordHitCol.enabled = false;
+            transform.rotation = Quaternion.identity;
+        }
+        
+        public int MaxAmmo = 20; //Maximum of bullets inside one clip
+        public int StoredAmmo = 130; //Total bullets inside the gun
+        private int AmmoDifference; 
+
+        public void GunReload()
+        {
+            AmmoDifference = MaxAmmo - ammoCount; //Calculates the amount of bullets fired
+            if (StoredAmmo >= 20) //If total bullets > 20
+            {
+                ammoCount = 20;    //Set ammo to 20 and reduce StoredAmmo by the ammo difference
+                StoredAmmo -= AmmoDifference;
+            }
+            else //If ammo is less than 20
+            {
+
+                ammoCount += (Math.Min(StoredAmmo,AmmoDifference));  //Add
+                StoredAmmo -= (Math.Min(StoredAmmo,AmmoDifference));
+            }
+
+            Debug.Log(StoredAmmo);
+        }
+
+        public float ForceMultiplier = 20f;
+        public GameObject ShellPrefab;
+        public void BulletShell()
+        {
+            GameObject shell = Instantiate(ShellPrefab, BulletSpawnPos.transform.position, Quaternion.identity);
+    
+            shell.GetComponent<Rigidbody2D>().AddForce(-SelectCircle.transform.up * ForceMultiplier/*Direction.transform.position-OriginPlayer.transform.position*ForceMultiper*/, ForceMode2D.Impulse);
+            //
+            //int hash = Animator.StringToHash("FaShell.transform.position = Vector3.Lerp(OriginPlayer.transform.position, Direction.transform.position, 0.5f);llDown");
+            //anim.Play(hash, 0, 0);
+        }
+
 }

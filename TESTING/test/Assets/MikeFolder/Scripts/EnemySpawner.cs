@@ -8,7 +8,11 @@ public class EnemySpawner : MonoBehaviour
 {
     public Vector2 SpawnBoundaries = new Vector2(41f, 24f);
     public Vector2 OutBoundaries = new Vector2(61f, 61f);
-    public GameObject EnemyPrefab;
+    public GameObject NormalEnemyPrefab;
+    public GameObject SpeedyEnemyPrefab;
+    public GameObject SlowBigEnemyPrefab;
+    public GameObject ShootingEnemyPrefab;
+        
     public Vector2 OutsideBox = new Vector2(18f, 10f);
 
     public float SpawnTimer = 0f;
@@ -61,7 +65,7 @@ public class EnemySpawner : MonoBehaviour
                 spawnLoc = new Vector2(Random.Range(-OutsideBox.x, OutsideBox.x), -OutsideBox.y);
             }
         }
-        Instantiate(EnemyPrefab, spawnLoc, Quaternion.identity);
+        //Instantiate(EnemyPrefab, spawnLoc, Quaternion.identity);
     }
 
     Vector2 RandPosOnBoundaryEdge(Vector2 centralPos, Vector2 boundary)
@@ -101,7 +105,8 @@ public class EnemySpawner : MonoBehaviour
                position.y < outBounds.y
                && position.y > -outBounds.y;
     }
-    
+
+    //private int AmountSpawned = 0;
     void SpawnEnemyBeyondPlayer()
     {
         Vector3 spawnLoc;
@@ -109,7 +114,23 @@ public class EnemySpawner : MonoBehaviour
         {
             spawnLoc = RandPosOnBoundaryEdge(transform.position, SpawnBoundaries);
         } while (!Vector2WithinBounds(spawnLoc, OutBoundaries));
-        Instantiate(EnemyPrefab, spawnLoc, Quaternion.identity);
+
+        int rand = Random.Range(0, 3);
+        switch (rand)
+        {
+            case 0:
+                Instantiate(NormalEnemyPrefab, spawnLoc, Quaternion.identity);
+                break;
+            case 1:
+                Instantiate(SpeedyEnemyPrefab, spawnLoc, Quaternion.identity);
+                break;
+            case 2:
+                Instantiate(SlowBigEnemyPrefab, spawnLoc, Quaternion.identity);
+                break;
+            default:
+                break;
+        }
+        
     }
 
 

@@ -1321,7 +1321,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &154718238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1334,13 +1334,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fe2f7383bcd3e64f98e271f11e033fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnBoundaries: {x: 55, y: 55}
+  SpawnBoundaries: {x: 60, y: 60}
   OutBoundaries: {x: 61, y: 61}
-  EnemyPrefab: {fileID: 4630013195028779859, guid: fb2ee303d2a13884e8c2e564ad9204ac,
+  NormalEnemyPrefab: {fileID: 4630013195028779859, guid: 7614b7fdacd88594b8a3f30550d5e208,
     type: 3}
+  SpeedyEnemyPrefab: {fileID: 4630013195028779859, guid: 7614b7fdacd88594b8a3f30550d5e208,
+    type: 3}
+  SlowBigEnemyPrefab: {fileID: 4630013195028779859, guid: 7614b7fdacd88594b8a3f30550d5e208,
+    type: 3}
+  ShootingEnemyPrefab: {fileID: 0}
   OutsideBox: {x: 58, y: 58}
   SpawnTimer: 0
-  SpawnEvery: 0.4
+  SpawnEvery: 0.7
 --- !u!4 &154718239
 Transform:
   m_ObjectHideFlags: 0
@@ -4406,7 +4411,7 @@ PrefabInstance:
     - target: {fileID: 6641369206423342817, guid: fea54a61f9054e2408b1568949c971e2,
         type: 3}
       propertyPath: ResetTimeAttack
-      value: 0.6
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 6641369206423342817, guid: fea54a61f9054e2408b1568949c971e2,
         type: 3}
@@ -4475,6 +4480,17 @@ PrefabInstance:
       propertyPath: PickUpCol
       value: 
       objectReference: {fileID: 649599334}
+    - target: {fileID: 6641369206423342817, guid: fea54a61f9054e2408b1568949c971e2,
+        type: 3}
+      propertyPath: Rotation
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6641369206423342817, guid: fea54a61f9054e2408b1568949c971e2,
+        type: 3}
+      propertyPath: ShellPrefab
+      value: 
+      objectReference: {fileID: 3439600126203773043, guid: 5dd668f7df2e7ac438147385c711a94a,
+        type: 3}
     - target: {fileID: 6251813129558751517, guid: fea54a61f9054e2408b1568949c971e2,
         type: 3}
       propertyPath: m_Controller
@@ -4556,6 +4572,16 @@ PrefabInstance:
       propertyPath: m_CollisionDetection
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5431806517057532927, guid: fea54a61f9054e2408b1568949c971e2,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.0016755698
+      objectReference: {fileID: 0}
+    - target: {fileID: 5431806517057532927, guid: fea54a61f9054e2408b1568949c971e2,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9999986
+      objectReference: {fileID: 0}
     - target: {fileID: 8603853394602892072, guid: fea54a61f9054e2408b1568949c971e2,
         type: 3}
       propertyPath: m_IsActive
@@ -4579,7 +4605,7 @@ PrefabInstance:
     - target: {fileID: 6795194376152166642, guid: fea54a61f9054e2408b1568949c971e2,
         type: 3}
       propertyPath: m_PointLightInnerAngle
-      value: 189
+      value: 196.57
       objectReference: {fileID: 0}
     - target: {fileID: 6795194376152166642, guid: fea54a61f9054e2408b1568949c971e2,
         type: 3}
@@ -4589,7 +4615,12 @@ PrefabInstance:
     - target: {fileID: 6795194376152166642, guid: fea54a61f9054e2408b1568949c971e2,
         type: 3}
       propertyPath: m_PointLightOuterAngle
-      value: 318
+      value: 325.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 6795194376152166642, guid: fea54a61f9054e2408b1568949c971e2,
+        type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 13.933882
       objectReference: {fileID: 0}
     - target: {fileID: 6645119449160903290, guid: fea54a61f9054e2408b1568949c971e2,
         type: 3}
