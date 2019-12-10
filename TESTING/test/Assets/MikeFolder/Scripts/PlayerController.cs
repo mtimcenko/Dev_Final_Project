@@ -226,7 +226,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //RELOAD
-        if (Input.GetKeyDown(KeyCode.R) && reloading == false)
+        if (Input.GetKeyDown(KeyCode.R)|| Input.GetKey(KeyCode.RightShift) && reloading == false)
         {
             // Debug.Log("here?");
             playerReload();
@@ -474,8 +474,6 @@ public class PlayerController : MonoBehaviour
             ammoCount = 20;
             reloading = false;
             CrossHair.GetComponent<SpriteRenderer>().sprite = crossHairSprite;
-
-          
         }
 
         IEnumerator LightsOff()
