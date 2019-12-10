@@ -70,9 +70,10 @@ public class FollowPlayer : MonoBehaviour
         //Check if enemy is dead
         if (Health <= 0)
         {
+            Debug.Log("dies here");
             
             //play enemy dead sound
-            //AM.PlaySound("enemyDead");
+            AudioManager.Instance.PlaySound("zombieShot");
 
             //destroy self
             Player.GetComponent<PlayerController>().ScoreAmount++;
@@ -85,6 +86,8 @@ public class FollowPlayer : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            AudioManager.Instance.PlaySound("playerDead");
+        
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
@@ -96,6 +99,8 @@ public class FollowPlayer : MonoBehaviour
         
         if (other.gameObject.CompareTag("Sword"))
         {
+            Debug.Log("sword dead");
+           // AudioManager.Instance.PlaySound("stabSound");
             Destroy(gameObject);
         }
             

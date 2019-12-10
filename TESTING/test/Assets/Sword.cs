@@ -24,6 +24,7 @@ public class Sword : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             other.gameObject.GetComponent<FollowPlayer>().LoseHealth(SwordDamage);
+            AudioManager.Instance.PlaySound("stabSound");
             print("hit");
         }
     }

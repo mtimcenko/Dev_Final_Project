@@ -20,11 +20,17 @@ public class AudioManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else
+        else if(Instance != this)
         {
             //already one in scene
             Destroy(gameObject);
+            return;
         }
+        else
+        {
+            return;
+        }
+
         
         //Create number of AudioSources based on number of sfx in SoundEffects
         foreach(Sound entry in SoundEffects)
@@ -49,7 +55,7 @@ public class AudioManager : MonoBehaviour
         }
         //sPlaySound("Arc");
     }
-
+   
     //find audiosource based on string, used with PlaySound()
     public AudioSource GetAudioSource(string soundName)
     {
@@ -97,6 +103,7 @@ public class AudioManager : MonoBehaviour
             Debug.LogWarning("No sound with name " + soundName + " was found");
         }
     }
+    
 
     //Used to stop sound
     public void StopSound(string soundName)

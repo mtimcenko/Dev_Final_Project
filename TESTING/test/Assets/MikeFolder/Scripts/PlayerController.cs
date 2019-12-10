@@ -9,10 +9,11 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
 //    Rigidbody2D body;
-
+    public bool steppingX = false;
+    public bool steppingY = false;
     public Vector2 velocity;
     public Vector2 velocityY;
- 
+    private bool running = true;
     public float speed = 5.0f;
     
     public float groundDeceleration = 0.5f;
@@ -120,7 +121,13 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       // StartCoroutine(zombieSounds());
 
+        
+        InvokeRepeating("zombieSounds", 0.001f, 10.0f);
+        InvokeRepeating("zombieThroat", 0.001f, 5.0f);
+
+        
         crossHairTransform = CrossHair.GetComponent<Transform>();
         reloadSR = reloadGO.GetComponent<SpriteRenderer>();
         reloadTransform = reloadGO.GetComponent<Transform>();
@@ -148,6 +155,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+       
+       
 
         if (reloading == false)
         {
@@ -178,7 +187,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButton(0)&& ammoCount <= 0)
         {
-            AM.PlaySound("empty");
+            AudioManager.Instance.PlaySound("empty");
         }
         //RELOAD
         if (Input.GetKeyDown(KeyCode.R)|| Input.GetKey(KeyCode.RightShift) && reloading == false)
@@ -223,34 +232,84 @@ public class PlayerController : MonoBehaviour
             
         }
 
+        if (!IsSwordAttached)
+        {
+          //  Debug.Log("chillin here");
+        }
+
         float moveInput = Input.GetAxisRaw("Horizontal");
+       // Debug.Log(moveInput);
+
+        if (moveInput == -1)
+        {
+            steppingX = true;
+            
+
+        }
+        
+        if (moveInput == 1)
+        {
+            steppingX = true;
+          
+        }
+        
 
             if (moveInput != 0)
             {
+              //  AudioManager.Instance.PlaySound("step");
                 velocity.x = Mathf.MoveTowards(velocity.x, speed * moveInput, walkAcceleration * Time.deltaTime);
             }
             else
             {
+                steppingX = false;
+              // AudioManager.Instance.PlaySound("step");
                 velocity.x = Mathf.MoveTowards(velocity.x, 0, groundDeceleration * Time.deltaTime);
             }
 
+            
+            
+         
+
             float moveInputVertical = Input.GetAxis("Vertical");
+            
+            if (moveInputVertical == -1)
+            {
+                steppingY = true;
+            
+
+            }
+        
+            if (moveInputVertical == 1)
+            {
+                steppingY = true;
+          
+            }
+
 
             if (moveInputVertical != 0)
             {
+               // AudioManager.Instance.PlaySound("step");
+                
                 velocity.y = Mathf.MoveTowards(velocity.y, speed * moveInputVertical,
                     walkAcceleration * Time.deltaTime);
             }
             else
             {
+                steppingY = false;
+               // AudioManager.Instance.PlaySound("step");
                 velocity.y = Mathf.MoveTowards(velocity.y, 0, groundDeceleration * Time.deltaTime);
             }
-
+            //AudioManager.Instance.PlaySound("step");
             transform.Translate(velocity * Time.deltaTime);
             //RB.velocity = (velocity * Time.deltaTime * 100f);
             //transform.Translate(velocity*Time.deltaTime);
 
+            
 
+            if (!steppingX && !steppingY)
+            {
+                AudioManager.Instance.PlaySound("step");
+            }
 
 //        horizontal = Input.GetAxisRaw("Horizontal");
 //        vertical = Input.GetAxisRaw("Vertical"); 
@@ -309,7 +368,7 @@ public class PlayerController : MonoBehaviour
 
                 //Set velocity of bullet
                 bullet.GetComponent<Rigidbody2D>().velocity = SelectCircle.transform.up * BulletSpeed;
-                AM.PlaySound("Shooting");
+                AudioManager.Instance.PlaySound("Shooting");
                 //reset timer for bullets
                 TimerForBullets = 0f;
 
@@ -338,7 +397,7 @@ public class PlayerController : MonoBehaviour
 
         public void ThrowSword()
         {
-            AM.PlaySound("swordYeet");
+            AudioManager.Instance.PlaySound("swordYeet");
 
             SwordRB.drag = 4f;
             SwordRB.angularDrag = 1f;
@@ -377,7 +436,7 @@ public class PlayerController : MonoBehaviour
 
         IEnumerator SwordSwing(float swingTime)
         {
-            AM.PlaySound("swordSwing");
+            AudioManager.Instance.PlaySound("swordSwing");
             yield return new WaitForSeconds(swingTime);
             SwordHitCol.enabled = false;
             AttackTimer = ResetTimeAttack; //MAGIC NUMBER FOR TIME IN BETWEEN ATTACKS
@@ -392,6 +451,7 @@ public class PlayerController : MonoBehaviour
         }
         IEnumerator reloadPlayer()
         {
+            AudioManager.Instance.PlaySound("gunReload");
             CrossHair.GetComponent<SpriteRenderer>().sprite = reloadSprite;
             CrossHair.GetComponent<Animator>().SetTrigger("reload");
             reloading = true;
@@ -399,5 +459,18 @@ public class PlayerController : MonoBehaviour
             ammoCount = 20;
             reloading = false;
             CrossHair.GetComponent<SpriteRenderer>().sprite = crossHairSprite;
+        }
+        
+        void zombieSounds()
+        {
+            
+            AudioManager.Instance.PlaySound("zombieRoar");
+            
+        }
+        void zombieThroat()
+        {
+            
+            AudioManager.Instance.PlaySound("zombieThroat");
+            
         }
     }
