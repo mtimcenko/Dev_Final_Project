@@ -8,7 +8,10 @@ public class PlayerAbility : MonoBehaviour
     public Transform PlayerTransform;
     public Vector2 dashPos;
 
-   
+    public float OriginalSpeed;
+    public float OriginalAccel;
+    public float OriginalGround;
+    
     public float speedInc = 10f;
     public float accelInc = 5f;
     public float groundInc = 0f;
@@ -19,6 +22,9 @@ public class PlayerAbility : MonoBehaviour
     {
         pMovement = GetComponent<PlayerController>();
         PlayerTransform = GetComponent<Transform>();
+        OriginalSpeed = pMovement.speed;
+        OriginalAccel = pMovement.walkAcceleration;
+        OriginalGround = pMovement.groundDeceleration;
     }
 
     // Update is called once per frame
@@ -58,23 +64,29 @@ public class PlayerAbility : MonoBehaviour
             transform.position.y < Boundaries.y
             && transform.position.y > -Boundaries.y)
         {
-            if (Input.GetKeyDown(KeyCode.B))
+            if (Input.GetKey(KeyCode.Space))
             {
-                pMovement.speed += speedInc;
-                pMovement.walkAcceleration += accelInc;
-                pMovement.groundDeceleration += groundInc;
+                pMovement.speed = OriginalSpeed + speedInc;
+                pMovement.walkAcceleration = OriginalAccel + accelInc;
+                pMovement.groundDeceleration = OriginalGround + groundInc;
     
             
             }
-    
-            //Reset speed 
-            
-        }
-        if (Input.GetKeyUp(KeyCode.B))
+            else
+            {
+                pMovement.speed = OriginalSpeed;
+                pMovement.walkAcceleration = OriginalAccel;
+                pMovement.groundDeceleration = OriginalGround;
+            }
+            pMovement.OutBoundaries = false;
+
+        } 
+        else
         {
-            pMovement.speed -= speedInc;
-            pMovement.walkAcceleration -= accelInc;
-            pMovement.groundDeceleration -= groundInc;
+            pMovement.speed = OriginalSpeed;
+            pMovement.walkAcceleration = OriginalAccel;
+            pMovement.groundDeceleration = OriginalGround;
+            pMovement.OutBoundaries = true;
         }
     
 

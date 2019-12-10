@@ -16,6 +16,15 @@ public class FollowPlayer : MonoBehaviour
     public float Timer = 0f;
 
     public float FindPlayerPos = .5f;
+
+    public GameObject AmmoPrefab;
+
+    public bool IsRanged = false;
+
+    public GameObject RangedPrefab;
+    public float RangedBulletSpeed;
+    private float RangedTimer = 0f;
+    public float RangedRate = .5f;
     //private AudioManager AM;
     // Start is called before the first frame update
     void Start()
@@ -31,9 +40,10 @@ public class FollowPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        MoveTowardPlayer();
         //Chase player if in aggro range
         //if (Vector3.Distance(Player.transform.position, transform.position) <= AggroRange)
-        if (true)
+        if (!IsRanged)
         {
             TurnEnemy();
             MoveTowardPlayer();
@@ -41,6 +51,23 @@ public class FollowPlayer : MonoBehaviour
         //stand still otherwise
         else
         {
+            RangedTimer += Time.deltaTime;
+            if (RangedTimer >= RangedRate)
+            {
+                //Shoot bullet
+                GameObject rangedAttack = Instantiate(RangedPrefab, transform.position,
+                    transform.rotation);
+                
+                rangedAttack.GetComponent<Rigidbody2D>().velocity = transform.up * RangedBulletSpeed;
+                RangedTimer = 0f;
+            }
+            
+            if (Vector3.Distance(Player.transform.position, transform.position) >= AggroRange)
+            {
+                
+            }
+            
+            TurnEnemy();
             RB.velocity = Vector2.zero;
         }
 
@@ -73,7 +100,7 @@ public class FollowPlayer : MonoBehaviour
             
             //play enemy dead sound
             //AM.PlaySound("enemyDead");
-
+            DropAmmo();
             //destroy self
             Player.GetComponent<PlayerController>().ScoreAmount++;
             Destroy(gameObject);
@@ -96,10 +123,19 @@ public class FollowPlayer : MonoBehaviour
         
         if (other.gameObject.CompareTag("Sword"))
         {
+            //infinite damage
+            LoseHealth(200);
+            DropAmmo();
             Destroy(gameObject);
         }
             
     }
 
+    public void DropAmmo()
+    {
+        Instantiate(AmmoPrefab, transform.position, Quaternion.identity);
+    }
+
+    
    
 }

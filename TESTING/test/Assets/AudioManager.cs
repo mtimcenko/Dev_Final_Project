@@ -21,7 +21,7 @@ public class AudioManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else
-        {
+        {    
             //already one in scene
             Destroy(gameObject);
         }
@@ -137,3 +137,5 @@ public class Sound
     public bool PlayOnAwake = false; //play immediately
     public bool Loop; //loop audio
 }
+
+
