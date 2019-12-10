@@ -263,7 +263,7 @@ public class PlayerController : MonoBehaviour
             //attack sword
             if (AttackTimer <= 0)
             {
-                if (Input.GetMouseButton(1) && IsSwordAttached)
+                if (Input.GetMouseButtonDown(1) && IsSwordAttached)
                 {
                     SwordHolder.SetActive(true);
                     SwordAnimator.SetTrigger(Swing);

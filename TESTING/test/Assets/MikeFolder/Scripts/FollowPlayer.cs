@@ -127,7 +127,6 @@ public class FollowPlayer : MonoBehaviour
             LoseHealth(200);
             DropAmmo();
             Destroy(gameObject);
-            
         }
             
     }
